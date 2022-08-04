@@ -33,12 +33,12 @@ if(isset($_post['Submit'])){
 <body>
 
   <div class="container">
-    <form action="index.php" method="post">
+    <!-- <form action="index.php" method="post"> -->
         <input name="email" type="text" placeholder="Enter the email" /> <br><br>
         <input name="message" type="text" placeholder="Enter the mail message" /> <br><br>
         <input name="subject" type="text" placeholder="Enter the Subject" /><br><br>
-        <button name="Submit">Send Mail</button>
-    </form>
+        <button name="Submit" onclick="setClipBoard(email);">Send Mail</button>
+    <!-- </form> -->
   </div>
 
 </body>
