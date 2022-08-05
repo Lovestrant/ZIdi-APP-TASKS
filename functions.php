@@ -348,7 +348,45 @@ $array1 = array(1,2,3,4,5);
 unset($array1);
 print_r("Array is: ".$array1[0]); //Will return undefined because it is unset already
 
-//
+
+//Retrieve data from Mysql to a list
+//$ sql is the mysql command and $con is the db connection
+$sql = "SELECT * FROM persons";
+if($result = mysqli_query($con, $sql)){
+    if(mysqli_num_rows($result) > 0){
+        while($row = mysqli_fetch_array($result)){
+            //Now you can map columns into a list
+            list($id, $first_name, $last_name, $email) = array($row['id'],$row['first_name'],$row['last_name'],$row['email']);
+            echo"id= ".$id;
+            echo"first_name: ".$first_name;
+        }
+    }}
+
+//Convert custom objects to Json
+//json_encode() is a native PHP function that allows you to convert PHP data into the JSON format.
+$array2 = array(6,7,8,9,10);
+$jsonVariable = json_encode($array2);
+echo"Data in Json: ".$jsonVariable;
+
+//Convert Json to Object
+//json_decode() is a native PHP function that allows the converson of Json data to Objects
+$jsonobject = '{"Peter":35,"Ben":37,"Joe":43}';
+$convertedValues = json_decode($jsonobject);
+echo"Decoded Json is: ".$convertedValues;
+
+
+//Remove duplicate values from the array
+//The array_unique() function will remove an array that is repeated, it will keep the first and trashes the next similar elements
+$arr = array(1, 4, 6, 1, 8, 9, 4, 6);
+$unique = array_unique($arr);
+echo"Unique Elements are: ".$unique;
+
+
+//Identify duplicate values in an array
+$arr = array(1, 4, 6, 1, 8, 9, 4, 6);
+$unique = array_unique($arr);
+$duplicates = array_diff_assoc($arr, $unique);
+echo"Duplicates are: ".$duplicates;
 
 
 
