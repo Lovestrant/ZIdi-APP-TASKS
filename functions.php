@@ -230,7 +230,6 @@ do{
 
 ///////////////Variables
 //Set a variable, all PHP variables are prefixed with dollar sign($)
-
 $d = 10;
 $text = "Hello World!";
 $theDouble = 10.6;
@@ -240,12 +239,164 @@ $theDouble = 10.6;
 //Inside the brackets a range is given
 
 $randomNumber = rand(10, 1000000);
-
 //The rand() method can also be called without being passed any values
 $rand = rand();
 
+//Increase a variable
+//Increamenting variable we use the increment sign
+//We have post-increment and pre-increment which increments first then returns a
+$a=1;
+++$a; 
+echo"Value of a is: ".$a;
+
+//post-increment returns a then increments
+$a=1;
+$a++; 
+echo"Value of a is: ".$a;
+
+//Pre-decrement decrements then returns a  
+$a=1;
+--$a; 
+echo"Value of a is: ".$a;
+
+//post-decrement returns a then decrements
+$a=1;
+$a--; 
+echo"Value of a is: ".$a;
+
+//To create a list, we use the list() function together with array
+//It is inbult in PHP and is used to assign elements of an array to multiple variables at a time.
+
+$numArray = array(1,2,3,4,5);
+//creating the list
+list($a, $b, $c, $d) = $numArray;
+echo"a = ".($a);
+echo"b = ".($b);
+echo"c = ".($c);
+echo"d = ".($d);
+
+//Inserting into a list
+//To add values to a list we use array_push() inbuilt method
+$numArray = array(1,2,3,4,5);
+list($a, $b, $c, $d) = $numArray;
+//Push to array first
+array_push($numArray,6,7);
+//Assign to a variables with list
+list($a, $b, $c, $d,$e,$f) = $numArray; // variable e and f are the newly added values
+//Access the new variables
+echo"e = ".($e);
+echo"f = ".($f);
+
+//Deleting list elements
+
+//Sorting a list
+//We use sort() function to display array elements in assending order and rsort() to display 
+//in descending order
+
+$numbers = array(11,2,34,9,5);
+$sortedArray = sort($numbers);
+
+for($i=0; $i<=count($sortedArray); $i++) {
+    //Printing Before being sorted
+    print($numbers[$i]);
+
+     //Printing after being sorted
+    print_r($sortedArray[$i]);
+}
+
+//Use the sorted array to create a sorted list
+list($a, $b, $c, $d) = $sortedArray;
+
+//To Reverse a list in PHP 
+$numbers = array(11,2,34,9,5);
+$sortedArray = sort($numbers);//Sorts list in ascending order
+$Reversed = rsort($sortedArray); //This reverses in descending order
+list($a, $b, $c, $d) = $Reversed;//The reversed list now
+
+
+//Shuffle list
+//To shuffle list we use the shuffle() method that randomizes the list of elements in an array
+
+$numbers = array(11,2,34,9,5);
+list($a, $b, $c, $d) = $numbers; //List before shuffling
+
+$shuffledList = shuffle($numbers);
+//Print shuffled array elements
+for($i=0; $i<=count($shuffledList); $i++) {
+    print_r($shuffledList[$i]);
+}
+//Use the shaffled array to create new List of element
+list($a, $b, $c, $d) = $shuffledList;
+
+
+//Merge Lists
+$array1 = array(1,2,3,4,5);
+//List from array1
+list($a, $b, $c, $d,$e) = $array1;
+$array2 = array(6,7,8,9,10);
+//List from array 2
+list($f, $g, $h, $i,$j) = $array2;
+
+//To merge the two lists You need to first merge the two arrays then create a new 
+//merged list from the new array
+$res = array_merge($array1, $array2);
+list($a, $b, $c, $d,$e,$f, $g, $h, $i,$j) = $res;
+
+//Clear List Items
+$array1 = array(1,2,3,4,5);
+//use the unset() method to remove all the values from the array
+unset($array1);
+print_r("Array is: ".$array1[0]); //Will return undefined because it is unset already
 
 //
+
+
+
+//Truncate number
+$num = 67.900345544;
+//Converts the number to 2 decimal places and assigns it to new variable
+$truncated_num = number_format($num , 2); 
+echo"Truncated Num is: ".$truncated_num;
+
+
+
+///////////////Date and Time
+//Get current date and time we use the date() function to format
+$date = date("Y/m/d");
+echo "Today is ".$date;
+
+//Add date time
+//To initialize the date 
+$datetime = new Datetime('2020-09-28');
+//to add 1 day to datetime  
+$datetime->add(new DateInterval('P1D'));
+// Getting the new date after addition
+echo $datetime->format('Y-m-d') . "\n";
+
+// Here 5 hours, 3 Minutes and 10 seconds is added
+$datetime->add(new DateInterval('PT5H3M10S'));
+// Getting the new date after addition
+echo $datetime->format('Y-m-d H:i:s') . "\n";
+
+//date_sub() is an inbuilt PHP function used to subtract date from current date
+//Use date_create() to create the date object
+$date = date_create('2022-10-25');
+//Use the line code below to subtract 5 years from object
+date_sub($date, date_interval_create_from_date_string('5 years'));
+//Use the line code below to subtract 5 months from object
+date_sub($date, date_interval_create_from_date_string('5 month'));
+//Use the line code below to subtract 5 days from object
+date_sub($date, date_interval_create_from_date_string('5 days'));
+//To echo out the new date after subtraction
+echo date_format($date, 'Y-m-d') . "\n";
+
+
+////// File
+
+
+
+//// 
+
 
 ?>
 
