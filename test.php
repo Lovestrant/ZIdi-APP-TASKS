@@ -1,10 +1,14 @@
 <?php
 
-$the_zip = new ZipArchive;
-// Add zip filename which needs to unzip in this case is zipname.zip
-$the_zip->open('zipname.zip');
-// Extracts to current directory with name of extraxted folder as zipname
-$the_zip->extractTo('./zipname');
-//Close Zip
-$the_zip->close();
-echo "Unzipped ";
+//Getting subfolders in a folder
+$dir    = 'Hello';
+$files1 = scandir($dir);
+
+for($i=0;$i<count($files1); $i++) {
+    if($files1[$i] != "." && $files1[$i] != ".."){
+        echo $files1[$i] . "<br><br>";
+
+    }
+}
+
+

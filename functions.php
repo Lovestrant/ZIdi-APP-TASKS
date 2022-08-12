@@ -485,7 +485,6 @@ echo $xml->animal[2]->name . "<br>";
 //We use remove child nodes
 $xml=simplexml_load_file("animalxml.xml") or die("Error: Cannot create object");
 $y = $xml.getElementsByTagName("anial")[0];
-
 $xml.documentElement.removeChild($y);
 
 
@@ -658,6 +657,103 @@ $the_zip->extractTo('./zipname');
 $the_zip->close();
 echo "Unzipped ";
 
+
+////PHP FOLDER
+
+//Create a folder with the name Hello
+mkdir("Hello");
+echo "Folder created";
+
+//Delete folder named Hello located in this directory
+rmdir("Hello");
+echo "Folder Deleted";
+
+//Copy folder
+//Copy files from one Folder
+//Create folder named NEWFolder,
+//You can create with same name as Hello folder if directory is different
+
+mkdir("NEWFolder"); 
+echo"Folder Created";
+$initialFolder = "Hello/"; //Folder to copy files from
+$toFolder = "NEWFolder/";
+$files = array_filter(glob("$initialFolder*"), "is_file");
+//copy files to  $toFolder
+foreach ($files as $f) { copy($f, $toFolder . basename($f)); }
+
+
+//Empty folder
+//Empty folder Hello
+$files = array_filter(glob("Hello/*"), "is_file");
+//Loop through all folder contents
+foreach ($files as $f) { 
+    if(is_file($f)){
+        // Delete the given file
+        unlink($f); 
+        echo"Files Deleted";
+    }
+}
+
+
+//Get files in folder
+$files = array_filter(glob("Hello/*"), "is_file");
+echo count($files); //To display number of all files in directory
+//Loop through all folder contents
+foreach ($files as $f) { 
+    if(is_file($f)){
+        $f; //This variable is the files in folder
+    }
+}
+
+
+
+//Move Folder
+
+mkdir("NEWFolder");  //Create folder
+mkdir("NEWFolder/Hello");  //Create Folder to move files to, same as folder to be moved
+
+//First copy files and move to inteded directory with created folder name same as initial
+$initialFolder = "Hello/"; //Folder to copy files from
+$toFolder = "NEWFolder/Hello/";//Directory to move folder to
+
+$files = array_filter(glob("$initialFolder*"), "is_file");
+//copy files to  $toFolder
+foreach ($files as $f) { copy($f, $toFolder . basename($f)); }
+//Delete files in Initial Directory
+$files = array_filter(glob("Hello/*"), "is_file");
+//Loop through all folder contents and delete each of them
+foreach ($files as $f) { 
+    if(is_file($f)){
+        // Delete the given file
+        unlink($f); 
+        echo"Files Deleted";
+    }
+}
+//Delete the initial folder itself
+rmdir("Hello");
+
+
+//check if folder exists
+
+$checkFolder = "Helloxc/"; //Checks if folder Helloxc exists or not
+if (is_dir($checkFolder)) {
+    echo "Exists"; //Echos Exists if folder is a directory
+}else{
+    echo "None"; //Echos None if folder is not a directory
+}
+
+
+//Getting subfolders in a folder
+$dir    = 'Hello'; //Folder name
+$files1 = scandir($dir); //Scan directory
+//Loop through all the folders and files in directory
+for($i=0;$i<count($files1); $i++) {
+    //Check and make sure folders are correct/Valid
+    if($files1[$i] != "." && $files1[$i] != ".."){
+        echo $files1[$i] . "<br><br>"; //Echo them out
+
+    }
+}
 
 
 
