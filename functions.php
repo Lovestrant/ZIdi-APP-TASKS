@@ -97,10 +97,8 @@ function retrieveEmailMessages($TheHost,$Theuser,$password){
 
 // Establish a IMAP connection 
 $conn = imap_open($TheHost, $Theuser, $password) or die('unable to connect Gmail: ' . imap_last_error());
-
 // Search emails from gmail inbox
 $mails = imap_search($conn, 'SUBJECT "Comment"');
-
 // loop through each email id mails are available. 
 if ($mails) {
 
@@ -433,7 +431,234 @@ echo date_format($date, 'Y-m-d') . "\n";
 
 
 
-//// 
+//// XML
+//Write Xml to file
+
+//Create xml and save in a document
+
+$theString = 
+'<?xml version="1.0" encoding="utf-8"?>
+<animaltypes>
+
+<animal category="mammals">
+    <name lang="en">dog</name>
+    <color>black</color>
+    <yearborn>2018</yearborn>
+    <price>3000.00</price>
+</animal>
+
+<animal category="mammals">
+    <name lang="en">cat</name>
+    <color>grey</color>
+    <yearborn>2019</yearborn>
+    <price>100.00</price>
+</animal>
+
+<animal category="mammals">
+    <name lang="en">cow</name>
+    <color>red</color>
+    <yearborn>2021</yearborn>
+    <price>50000.00</price>
+</animal>
+
+</animaltypes>';
+
+$thedom = new DOMDocument;
+$thedom->preserveWhiteSpace = TRUE;
+$thedom->loadXML($theString);
+//Save XML as a file as animalxml.xml
+$thedom->save('animalxml.xml');
+
+
+//Set xml element value
+//Read xml docs
+$xml=simplexml_load_file("animalxml.xml") or die("Error: Cannot create object");
+echo $xml->animal[0]->name . "<br>";
+echo $xml->animal[0]->color . "<br>";
+echo $xml->animal[0]->yearborn . "<br>";
+echo $xml->animal[0]->price . "<br>";
+echo $xml->animal[1]->name . "<br>";
+echo $xml->animal[2]->name . "<br>";
+
+
+//remove child Nodes from XML
+//We use remove child nodes
+$xml=simplexml_load_file("animalxml.xml") or die("Error: Cannot create object");
+$y = $xml.getElementsByTagName("anial")[0];
+
+$xml.documentElement.removeChild($y);
+
+
+
+
+////TEXTS
+
+//Create random texts
+$number_of_chars = 10;
+function generateRandomTexts($number_of_chars) {
+     $characters = "HJKSDF78BKXllkjhfFBV8SDFDFVWUMK7329BKDBVKDBVJDiouiyvrrgcfdF";
+     for($i=0; $i<=$number_of_chars; $i++){
+        $index = rand(0, strlen($characters)-1);
+        $theRandomString .= $characters[$index]; 
+     }
+
+     return $theRandomString;
+}
+//Call the function and pass the number of Characters to be generated
+echo generateRandomTexts($number_of_chars);
+
+
+//Trim text
+//Trim function removes unnecessary whitespaces from both sides of the string
+$str = "\n\n Hello World! \n";
+echo $str; //This prints hello world! with the empty lines on both sides
+echo trim($str); //This will remove all spaces and unused lines on both sides 
+
+
+//split a string, we use explode() inbuild function
+//Explode gives the output as an array
+
+$str = "Hi, How are you doing?";
+$value= explode(" ",$str);
+//Output will be
+/*
+Array
+(
+    [0] => Hi,
+    [1] => How
+    [2] => are
+    [3] => you
+    [4] => doing?
+)*/
+echo $value[0]."<br>";
+echo $value[2]."\n";
+
+$value= explode(" ",$str,3); //The 3 here specifys the number of parts the string will be split
+/*
+Array
+(
+    [0] => Hi,
+    [1] => How
+    [2] => are you doing?
+)*/
+echo $value[0]."<br>";
+echo $value[2]."\n";
+
+
+//trim text
+//We use str_split() function in PHP, takes 2 parameters the text to be split and the index of split in text
+$str = "Hi, How are you doing?";
+$splitText = str_split($str,2);
+echo $splitText[0]; //This will give Hi 
+echo $splitText[1]; //This will give , 
+echo $splitText[2]; //This will give Ho
+
+
+//Replace a string
+//To replace a string we use str_replace(), an inbuilt method.
+//It takes 3 compulsory parameters and 1 optional parameter
+//First is the value to be found and replaced, second is the string to replace the found value and
+// third is the string that needs to be altered. The optional parameter counts nuber of replacements
+
+$str = "Hi, How are you doing?";
+$replacedString = str_replace("you","we",$str);
+echo $str."<br>";
+echo $replacedString;
+
+//Replace string
+//This replaces Hello in Hello World( Case Insensitive) with Hi
+echo str_ireplace("HELLO","HI","Hello world!");
+
+//Pad a string
+//This pads a string to a new length
+//Takes 3 parameters first is the string to be padded, 2nd is the length of new string and
+// 3rd is the element to be added at the end to give new length
+$str = "Hi, How are you doing?";
+echo str_pad($str,30,"-");
+
+//Reverse a string, we use strrev() method and pass the string
+$str = "Hi, How are you doing?";
+echo strrev($str);
+
+//Join text/Append texts, we use a dot as a concatenation Sign
+$str1 = "Good";
+$str2 = "Day";
+echo $str1.$str2;
+
+//convert text to number
+//we use number_format() method
+$num = "7";
+$theNum = number_format($num);
+echo $theNum *2; //Outputs 14
+
+//Sub text
+//This return the rest of the string from the 6th character
+echo substr("Hello world",6);
+
+$text = "HELLO wORLD";
+echo strtoupper($text);//Coverts to Uppsercase
+echo strtolower($text);//Converts text to lower case
+
+//Convert datetime to string
+$theDate    = new DateTime('2022-28-08');
+echo $stringDate = $theDate->format('Y-m-d H:i:s');
+
+
+//Convert string to datetime
+$input = '06/10/2022 19:00:05';
+$date = strtotime($input);
+echo date('d/M/Y h:i:s', $date);
+
+//Parse text 
+//The parse_str() function parses a query string into variables.
+parse_str("first_name=Dennis&my_age=23");
+echo $first_name."<br>";
+echo $my_age;
+
+
+//File Encryption with PHP
+
+
+/////// ZIP FILES
+
+//create a zip 
+
+// Enter the name of folder to be zipped (directory)
+$pathdirectory = "hello/";
+
+//Create a name for the zip folder to be created
+$zip_created = "zipname.zip";
+
+// Create new zip class
+$zip = new ZipArchive;
+
+//If zip exists reuse it else create a zip with that name
+if($zip -> open($zip_created, ZipArchive::CREATE ) === TRUE) {
+
+    // Store the files in our `Files to zip` zip file.
+    $dir = opendir($pathdirectory);
+
+    while($file = readdir($dir)) {
+        if(is_file($pathdirectory.$file)) {
+            $zip -> addFile($pathdirectory.$file, $file);
+
+            echo "Zip created";
+}
+}
+}
+
+//Unzip files
+
+$the_zip = new ZipArchive;
+// Add zip filename which needs to unzip in this case is zipname.zip
+$the_zip->open('zipname.zip');
+// Extracts to current directory with name of extraxted folder as zipname
+$the_zip->extractTo('./zipname');
+//Close Zip
+$the_zip->close();
+echo "Unzipped ";
+
+
 
 
 ?>
